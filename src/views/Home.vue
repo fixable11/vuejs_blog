@@ -8,7 +8,12 @@
                     </template>
                 </post>
             </div>
-            <pagination @pageChanged="changePage" :current-page="currentPage" :total-items="totalPosts" :per-page="postsLimit" />
+            <pagination
+                @pageChanged="changePage"
+                :current-page="currentPage"
+                :total-items="totalPosts"
+                :per-page="postsLimit"
+            />
         </div>
     </div>
 </template>
@@ -43,7 +48,6 @@
                 this.loaded = true;
                 this.updatePosts(page);
             }
-
         },
         methods: {
             ...mapActions(['fetchPosts']),

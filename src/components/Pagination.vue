@@ -27,7 +27,7 @@
 <script>
     export default {
         name: "Pagination",
-        props: ['totalItems', 'perPage', 'currentPage'],
+        props: ['totalItems', 'perPage', 'currentPage', 'route'],
         data() {
             return {
                 items: 0,
@@ -49,7 +49,7 @@
                     return;
                 }
 
-                this.$router.push('/?page=' + page);
+                this.$router.push('?page=' + page);
                 this.$emit('pageChanged', page);
             },
         }
