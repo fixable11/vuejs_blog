@@ -3,8 +3,10 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './bootstrap';
+import Paginate from 'vuejs-paginate';
 
 Vue.config.productionTip = false;
+Vue.component('paginate', Paginate);
 
 new Vue({
   router,

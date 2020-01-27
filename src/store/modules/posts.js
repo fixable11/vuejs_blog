@@ -1,3 +1,5 @@
+import Posts from '../../repository/posts';
+
 const state = {
     posts: [],
 };
@@ -22,12 +24,13 @@ const mutations = {
 
 const actions = {
     async fetchPosts({commit}) {
-        const {data: posts} = await axios.get('https://jsonplaceholder.typicode.com/posts');
-        commit('addPosts', posts)
+        const {data: posts} = await Posts.fetchPosts();
+        commit('addPosts', posts);
     }
 };
 
 export default {
+    namespaced: true,
     state,
     getters,
     actions,

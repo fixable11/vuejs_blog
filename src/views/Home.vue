@@ -19,9 +19,11 @@
 </template>
 
 <script>
-    import { mapState, mapGetters, mapActions } from 'vuex';
+    import { createNamespacedHelpers } from 'vuex';
     import Pagination from "../components/Pagination";
     import Post from "../components/Post";
+
+    const { mapState, mapActions, mapGetters } = createNamespacedHelpers('posts');
 
     export default {
         name: 'home',
@@ -56,14 +58,11 @@
                 this.updatePosts(page);
             },
             updatePosts(page) {
-                this.posts = this.$store.getters.getPosts({page, limit: this.postsLimit});
+                this.posts = this.getPosts({page, limit: this.postsLimit});
             }
         },
         computed: {
-            ...mapGetters(['totalPosts']),
-            getPosts() {
-                return this.$store.getters.getPosts({});
-            }
+            ...mapGetters(['totalPosts', 'getPosts']),
         }
     }
 </script>
