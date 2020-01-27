@@ -28,10 +28,9 @@
 
 <script>
     import Post from "../components/Post";
-    import Pagination from "../components/Pagination";
 
     export default {
-        components: {Post, Pagination},
+        components: {Post},
         name: "PostComments",
         data() {
             return {

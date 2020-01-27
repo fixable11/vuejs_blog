@@ -8,26 +8,33 @@
                     </template>
                 </post>
             </div>
-            <pagination
-                @pageChanged="changePage"
-                :current-page="currentPage"
-                :total-items="totalPosts"
-                :per-page="postsLimit"
-            />
+            <paginate
+                :page-count="pageCount"
+                :page-range="3"
+                :margin-pages="2"
+                :click-handler="goToPage"
+                :prev-text="'Prev'"
+                :next-text="'Next'"
+                :container-class="'pagination'"
+                :page-class="'page-item'"
+                :page-link-class="'page-link'"
+                :prev-link-class="'page-link'"
+                :next-link-class="'page-link'"
+            >
+            </paginate>
         </div>
     </div>
 </template>
 
 <script>
     import { createNamespacedHelpers } from 'vuex';
-    import Pagination from "../components/Pagination";
     import Post from "../components/Post";
 
     const { mapState, mapActions, mapGetters } = createNamespacedHelpers('posts');
 
     export default {
         name: 'home',
-        components: {Pagination, Post},
+        components: {Post},
         beforeRouteEnter (to, from, next) {
             next(vm => {
                 vm.changePage(1);
@@ -59,10 +66,18 @@
             },
             updatePosts(page) {
                 this.posts = this.getPosts({page, limit: this.postsLimit});
-            }
+            },
+            goToPage(page) {
+                this.$router.push('?page=' + page);
+                this.changePage(page);
+            },
         },
         computed: {
-            ...mapGetters(['totalPosts', 'getPosts']),
+            ...mapGetters([
+                'pageCount',
+                'totalPosts',
+                'getPosts'
+            ]),
         }
     }
 </script>
