@@ -4,9 +4,12 @@ import router from './router'
 import store from './store'
 import './bootstrap';
 import Paginate from 'vuejs-paginate';
+import Validator from './plugins/validator';
 
 Vue.config.productionTip = false;
 Vue.component('paginate', Paginate);
+
+Vue.use(Validator);
 
 new Vue({
   router,
