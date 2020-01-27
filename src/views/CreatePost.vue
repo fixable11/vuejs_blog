@@ -36,6 +36,7 @@
             ]),
             async create(event) {
                 await this.createPost(this.form);
+                toastr.success('Post has been created successfully');
                 await Object.keys(this.form).forEach(key => this.form[key] = '');
             }
         }
