@@ -10,14 +10,15 @@
                     <label for="desc">Body</label>
                     <textarea v-model="form.body" type="text" class="form-control" id="desc"/>
                 </div>
-                <button @click.prevent="onSubmit" type="submit" class="btn btn-primary">Submit</button>
+                <button @click.prevent="create" type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>
 </template>
 
 <script>
-    import { mapMutations } from 'vuex';
+    import { createNamespacedHelpers } from 'vuex';
+    const { mapState, mapActions, mapGetters, mapMutations } = createNamespacedHelpers('posts');
 
     export default {
         name: "CreatePost",
@@ -30,12 +31,12 @@
             }
         },
         methods: {
-            ...mapMutations(['addPost']),
-            async onSubmit(event) {
-                let {data} = await axios.post('https://jsonplaceholder.typicode.com/posts', this.form);
-                this.addPost(data);
-
-                Object.keys(this.form).forEach(key => this.form[key] = '');
+            ...mapActions([
+                'createPost'
+            ]),
+            async create(event) {
+                await this.createPost(this.form);
+                await Object.keys(this.form).forEach(key => this.form[key] = '');
             }
         }
     }

@@ -28,6 +28,8 @@
 
 <script>
     import Post from "../components/Post";
+    import { createNamespacedHelpers } from 'vuex';
+    const { mapState, mapActions, mapGetters, mapMutations } = createNamespacedHelpers('posts');
 
     export default {
         components: {Post},

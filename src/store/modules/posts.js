@@ -29,7 +29,11 @@ const actions = {
     async fetchPosts({commit}) {
         const {data: posts} = await Posts.fetchPosts();
         commit('addPosts', posts);
-    }
+    },
+    async createPost({commit, state}, data) {
+        let {data: post} = await Posts.createPost(data);
+        commit('addPost', post);
+    },
 };
 
 export default {
