@@ -7,6 +7,8 @@
 
 <script>
     import Navigation from "./components/Navigation";
+    import { createNamespacedHelpers } from 'vuex';
+    const { mapState, mapActions, mapGetters } = createNamespacedHelpers('posts');
 
     export default {
         components: { Navigation },
@@ -15,11 +17,11 @@
 
             }
         },
-        created() {
-
+        async created() {
+            await this.fetchPosts();
         },
-        mounted() {
-
+        methods: {
+            ...mapActions(['fetchPosts']),
         }
     }
 </script>

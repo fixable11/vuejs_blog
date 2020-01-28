@@ -7,8 +7,8 @@ const state = {
 };
 
 const getters = {
-    getPosts: state => params => {
-        let allParams = Object.assign({page: 1, limit: PAGE_LIMIT}, params);
+    getPosts: state => page => {
+        let allParams = Object.assign({page: 1, limit: PAGE_LIMIT}, {page});
 
         return state.posts.slice((allParams.page - 1) * allParams.limit, allParams.page * allParams.limit);
     },
@@ -18,7 +18,7 @@ const getters = {
 
 const mutations = {
     addPosts(state, posts) {
-        state.posts = state.posts.concat(posts);
+        state.posts = posts;
     },
     addPost(state, post) {
         state.posts.unshift(post);

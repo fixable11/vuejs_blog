@@ -2,13 +2,14 @@
     <div class="home">
         <div class="container">
             <div class="row row-cols-1 row-cols-md-4">
-                <post v-for="post in posts" :post="post">
+                <post v-for="post in getPosts(currentPage)" :post="post" :key="post.id">
                     <template v-slot:commentsLink>
                         <router-link :to="{ name:'postComments', params: {id: post.id}}">Comments</router-link>
                     </template>
                 </post>
             </div>
             <paginate
+                :value="page"
                 :page-count="pageCount"
                 :page-range="3"
                 :margin-pages="2"
@@ -29,7 +30,6 @@
 <script>
     import { createNamespacedHelpers } from 'vuex';
     import Post from "../components/Post";
-
     const { mapState, mapActions, mapGetters } = createNamespacedHelpers('posts');
 
     export default {
@@ -37,35 +37,24 @@
         components: {Post},
         beforeRouteEnter (to, from, next) {
             next(vm => {
-                vm.changePage(1);
+                vm.changePage(+vm.$route.query.page || 1);
             })
         },
         data () {
             return {
                 postsLimit: 8,
                 posts: [],
-                currentPage: 1,
                 loaded: false,
+                page: 1,
             }
         },
         async created() {
-            let page = this.$route.query.page || 1;
-            this.currentPage = page;
 
-            if (this.loaded === false) {
-                await this.fetchPosts();
-                this.loaded = true;
-                this.updatePosts(page);
-            }
         },
         methods: {
             ...mapActions(['fetchPosts']),
             changePage(page) {
-                this.currentPage = page;
-                this.updatePosts(page);
-            },
-            updatePosts(page) {
-                this.posts = this.getPosts({page, limit: this.postsLimit});
+                this.page = page;
             },
             goToPage(page) {
                 this.$router.push('?page=' + page);
@@ -78,6 +67,9 @@
                 'totalPosts',
                 'getPosts'
             ]),
+            currentPage() {
+                return this.page;
+            }
         }
     }
 </script>

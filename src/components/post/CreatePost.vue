@@ -20,7 +20,6 @@
                                 {{ errors[0] }}
                             </div>
                         </ValidationProvider>
-
                     </div>
                     <button @click.prevent="create" :disabled="invalid" type="submit" class="btn btn-primary">Submit</button>
                 </form>
