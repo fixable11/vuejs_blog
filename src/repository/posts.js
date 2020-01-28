@@ -1,6 +1,7 @@
 import Base from "./base";
 
 const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts';
+const COMMENTS_URL = 'https://jsonplaceholder.typicode.com/comments';
 
 class Posts extends Base {
     static fetchPosts() {
@@ -14,6 +15,12 @@ class Posts extends Base {
     }
     static updatePost(id, data) {
         return this.put(`${POSTS_URL}/${id}`, data);
+    }
+    static fetchPost(id) {
+        return this.get(`${POSTS_URL}/${id}`);
+    }
+    static fetchComments(postId) {
+        return this.get(`${COMMENTS_URL}/?postId=${postId}`);
     }
 }
 

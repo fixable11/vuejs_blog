@@ -5,11 +5,19 @@ import store from './store'
 import './bootstrap';
 import Paginate from 'vuejs-paginate';
 import Validator from './plugins/validator';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import Loading from 'vue-loading-overlay';
+
+library.add(faPencilAlt, faTrash);
 
 Vue.config.productionTip = false;
 Vue.component('paginate', Paginate);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(Validator);
+Vue.use(Loading);
 
 new Vue({
   router,

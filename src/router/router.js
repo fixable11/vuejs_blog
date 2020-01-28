@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import CreatePost from "../views/post/CreatePost";
-import PostComments from "../views/PostComments";
+import PostView from "../views/post/PostView";
 
 Vue.use(VueRouter);
 
@@ -18,9 +18,9 @@ const routes = [
         component: CreatePost,
     },
     {
-        path: '/posts/:id/comments',
-        name: 'postComments',
-        component: PostComments,
+        path: '/posts/:id',
+        name: 'postView',
+        component: PostView,
     },
 ];
 

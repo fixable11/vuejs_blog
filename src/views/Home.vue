@@ -3,8 +3,8 @@
         <div class="container">
             <div class="row row-cols-1 row-cols-md-4">
                 <post v-for="post in getPosts(currentPage)" :post="post" :key="post.id">
-                    <template v-slot:commentsLink>
-                        <router-link :to="{ name:'postComments', params: {id: post.id}}">Comments</router-link>
+                    <template v-slot:postView>
+                        <router-link class="card-title" :to="{ name:'postView', params: {id: post.id}}">{{post.title}}</router-link>
                     </template>
                 </post>
             </div>
@@ -29,7 +29,7 @@
 
 <script>
     import { createNamespacedHelpers } from 'vuex';
-    import Post from "../components/Post";
+    import Post from "../components/post/Post";
     const { mapState, mapActions, mapGetters } = createNamespacedHelpers('posts');
 
     export default {
@@ -52,7 +52,6 @@
 
         },
         methods: {
-            ...mapActions(['fetchPosts']),
             changePage(page) {
                 this.page = page;
             },
