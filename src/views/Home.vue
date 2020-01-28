@@ -31,6 +31,7 @@
     import { createNamespacedHelpers } from 'vuex';
     import Post from "../components/post/Post";
     const { mapState, mapActions, mapGetters } = createNamespacedHelpers('posts');
+    import loader from "../mixins/loader";
 
     export default {
         name: 'home',
@@ -40,11 +41,11 @@
                 vm.changePage(+vm.$route.query.page || 1);
             })
         },
+        mixins: [loader],
         data () {
             return {
                 postsLimit: 8,
                 posts: [],
-                loaded: false,
                 page: 1,
             }
         },
@@ -53,7 +54,9 @@
         },
         methods: {
             changePage(page) {
+                this.loadStart();
                 this.page = page;
+                setTimeout(this.loadEnd, 250);
             },
             goToPage(page) {
                 this.$router.push('?page=' + page);

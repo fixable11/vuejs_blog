@@ -1,7 +1,7 @@
 <template>
     <div class="col mb-4">
         <div class="card h-100">
-            <img src="https://via.placeholder.com/350" class="card-img-top" alt="...">
+            <img :src="post.photo ? post.photo : 'https://via.placeholder.com/350'" class="card-img-top" alt="...">
             <div class="card-body">
                 <slot name="postView">
                     <h5 class="card-title">{{ post.title }}</h5>

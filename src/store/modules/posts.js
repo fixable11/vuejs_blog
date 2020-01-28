@@ -6,6 +6,7 @@ const state = {
     posts: [],
     post: {
         id: '',
+        photo: '',
         title: '',
         body: '',
         comments: [],

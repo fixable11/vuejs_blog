@@ -17,6 +17,7 @@
     import Post from "../../components/post/Post";
     import PostComment from "../../components/post/PostComment";
     import { createNamespacedHelpers } from 'vuex';
+    import loader from "../../mixins/loader";
     const { mapState, mapActions, mapGetters, mapMutations } = createNamespacedHelpers('posts');
 
     export default {
@@ -26,11 +27,12 @@
 
             }
         },
+        mixins: [loader],
         async created() {
-            let loader = this.$loading.show({});
+            this.loadStart();
             let postId = this.$route.params.id;
             await this.fetchPost(postId);
-            loader.hide()
+            this.loadEnd();
         },
         methods: {
             ...mapActions([
