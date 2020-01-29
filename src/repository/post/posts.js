@@ -1,7 +1,6 @@
-import Base from "./base";
+import Base from "../base";
 
 const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts';
-const COMMENTS_URL = 'https://jsonplaceholder.typicode.com/comments';
 const PHOTOS_URL = 'https://jsonplaceholder.typicode.com/photos';
 
 class Posts extends Base {
@@ -23,9 +22,6 @@ class Posts extends Base {
         post.photo = photo.url;
 
         return {data: post};
-    }
-    static fetchComments(postId) {
-        return this.get(`${COMMENTS_URL}/?postId=${postId}`);
     }
 }
 

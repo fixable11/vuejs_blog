@@ -6,11 +6,11 @@ import './bootstrap';
 import Paginate from 'vuejs-paginate';
 import Validator from './plugins/validator';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faPencilAlt, faTrash, faBan, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import Loading from 'vue-loading-overlay';
 
-library.add(faPencilAlt, faTrash);
+library.add(faPencilAlt, faTrash, faBan, faCheck);
 
 Vue.config.productionTip = false;
 Vue.component('paginate', Paginate);

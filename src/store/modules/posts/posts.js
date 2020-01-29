@@ -1,4 +1,7 @@
-import Posts from '../../repository/posts';
+import Posts from '../../../repository/post/posts';
+import Comments from "../../../repository/post/comments";
+import comments from "./comments";
+
 
 const PAGE_LIMIT = 8;
 const COMMENTS_LIMIT = 2;
@@ -32,38 +35,104 @@ const getters = {
 };
 
 const mutations = {
-    addPosts(state, posts) {
+
+    /**
+     * Load all posts to state.
+     *
+     * @param state
+     * @param posts
+     */
+    setPosts(state, posts) {
         state.posts = posts;
     },
+
+    /**
+     * Add new post to state.
+     *
+     * @param state
+     * @param post
+     */
     addPost(state, post) {
         state.posts.unshift(post);
     },
+
+    /**
+     * Set current post.
+     *
+     * @param state
+     * @param post
+     */
     setCurrentPost(state, post) {
         Object.assign(state.post, post);
     },
+
+    /**
+     * Load post's comments.
+     *
+     * @param state
+     * @param comments
+     */
     setPostComments(state, comments) {
         state.post.comments = comments;
-    }
+    },
+
+    ...comments.mutations,
 };
 
 const actions = {
+
+    /**
+     * Fetch all posts.
+     *
+     * @param commit
+     * @returns {Promise<void>}
+     */
     async fetchPosts({commit}) {
         const {data: posts} = await Posts.fetchPosts();
-        commit('addPosts', posts);
+        commit('setPosts', posts);
     },
+
+    /**
+     * Fetch the specific post.
+     *
+     * @param commit
+     * @param dispatch
+     * @param postId
+     * @returns {Promise<void>}
+     */
     async fetchPost({commit, dispatch}, postId) {
         const {data: post} = await Posts.fetchPost(postId);
         commit('setCurrentPost', post);
         await dispatch('fetchPostComments', postId);
     },
-    async fetchPostComments({commit, dispatch}, postId) {
-        const {data: comments} = await Posts.fetchComments(postId);
-        commit('setPostComments', comments);
-    },
+
+    /**
+     * Create new post.
+     *
+     * @param commit
+     * @param state
+     * @param data
+     * @returns {Promise<void>}
+     */
     async createPost({commit, state}, data) {
         let {data: post} = await Posts.createPost(data);
         commit('addPost', post);
     },
+
+    /**
+     * Fetch post's comments.
+     *
+     * @param commit
+     * @param dispatch
+     * @param postId
+     * @returns {Promise<void>}
+     */
+    async fetchPostComments({commit, dispatch}, postId) {
+        const {data: comments} = await Comments.fetchComments(postId);
+        commit('setPostComments', comments);
+    },
+
+    ...comments.actions,
 };
 
 export default {
