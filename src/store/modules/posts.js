@@ -1,6 +1,7 @@
 import Posts from '../../repository/posts';
 
 const PAGE_LIMIT = 8;
+const COMMENTS_LIMIT = 2;
 
 const state = {
     posts: [],
@@ -21,8 +22,13 @@ const getters = {
     },
     totalPosts: state => state.posts.length,
     pageCount: (state, getters) => Math.ceil(getters.totalPosts / PAGE_LIMIT),
+    commentsCount: (state, getters) => Math.ceil(getters.getPost.comments.length / COMMENTS_LIMIT),
     getPost: (state) => state.post,
-    getPostComments: (state) => state.post.comments,
+    getPostComments: state => page => {
+        let allParams = Object.assign({page: 1, limit: COMMENTS_LIMIT}, {page});
+
+        return state.post.comments.slice((allParams.page - 1) * allParams.limit, allParams.page * allParams.limit);
+    },
 };
 
 const mutations = {

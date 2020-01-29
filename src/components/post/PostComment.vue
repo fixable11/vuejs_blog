@@ -32,7 +32,6 @@
         name: "PostComment",
         props: ['comment'],
         created() {
-            console.log(this.comment)
         }
     }
 </script>
